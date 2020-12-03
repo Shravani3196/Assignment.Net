@@ -4,293 +4,161 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment3
+namespace EmployeeAssignment
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Manager m = new Manager("Shruti", 12, 15000, "manager");
-            Console.WriteLine(m.NAME + " " + m.EMPNO + " " + m.DEPTNO + " " + m.BASIC + " " + m.DES);
-            Console.WriteLine(m.clacNetsalary());
-            
+
+            Employee o1 = new Employee("Abhishek", 40000, 10);
+            Console.WriteLine(o1.P1 + " " + o1.P2 + " " + o1.P3 + " " + o1.P4);
+            Console.WriteLine(o1.GetNetsalary());
             Console.ReadLine();
 
-            GeneralManager g = new GeneralManager("chaitali", 4, 45000, "mgr", "ab");
-            Console.WriteLine(g.NAME + " " + g.EMPNO + " " + g.DEPTNO + " " + g.BASIC + " " + g.DES + " " + g.PERK);
-            Console.WriteLine(m.clacNetsalary());
+            Employee o2 = new Employee("leena", 20000);
+            Console.WriteLine(o2.P1 + " " + o2.P2 + " " + o2.P3);
+            Console.WriteLine(o2.GetNetsalary());
             Console.ReadLine();
 
 
-            //  Ceo c=new 
-            Console.WriteLine(g.NAME + " " + g.EMPNO + " " + g.DEPTNO + " " + g.BASIC + " " + g.DES + " " + g.PERK);
-            Console.WriteLine(m.NAME + " " + m.EMPNO + " " + m.DEPTNO + " " + m.BASIC + " " + m.DES);
+
+
+            Employee o3 = new Employee("Lalita");
+            Console.WriteLine(o3.P1 + " " + o3.P2 + " " + o3.P3 + " " + o3.P4);
             Console.ReadLine();
+            Console.WriteLine(o3.GetNetsalary());
 
-             
 
-            
-            Idbfunction oIDb;
-            oIDb = m;
-            oIDb.delete();
+            Employee o4 = new Employee();
+            Console.WriteLine(o4.GetNetsalary());
+            Console.WriteLine(o4.P1 + " " + o4.P2 + " " + o4.P3 + " " + o4.P4);
+
+            Console.WriteLine(o4.P1 + " " + o4.P2 + " " + o4.P3 + " " + o4.P4);
+
+            Console.WriteLine(o3.P1 + " " + o3.P2 + " " + o3.P3 + " " + o3.P4);
+
+            Console.WriteLine(o2.P1 + " " + o2.P2 + " " + o2.P3);
+
+            Console.WriteLine(o1.P1 + " " + o1.P2 + " " + o1.P3 + " " + o1.P4);
+
             Console.ReadLine();
-
-            oIDb = g;
-            oIDb.insert();
-            Console.ReadLine();
-
         }
-    }
-    public interface Idbfunction
-    {
-        void insert();
-        void update();
-        void delete();
+
 
     }
-    abstract class Employee:Idbfunction
+
+    class Employee
     {
         string name;
-        // int empNo;
-        short deptNo;
+        static int empno;
+        decimal basic;
+        short deptno;
 
-        protected decimal basic;
-        protected static int lastempno = 0;
-
-        public string NAME
+        public decimal GetNetsalary()
         {
+            decimal netsal;
+            netsal = basic + 900;
+
+            return netsal;
+        }
+
+        public string P1
+        {
+
             set
             {
-                if (value == " ")
+
+
+
+                if (value == "")
                 {
-                    Console.WriteLine("invalid name");
+                    Console.WriteLine("null values");
                 }
                 else
                 {
-                    this.name = value;
+                    name = value;
                 }
             }
             get
             {
                 return name;
             }
-
         }
 
-        public int EMPNO
+        public int P2
         {
             get;
 
         }
 
-        public short DEPTNO
+        public decimal P3
+        {
+            set
+            {
+                if (value <= 50000 && value >= 10000)
+                {
+                    basic = value;
+                }
+                else
+                {
+                    Console.WriteLine("salary is invalid");
+                }
+            }
+            get
+            {
+                return basic;
+            }
+        }
+
+        public short P4
         {
             set
             {
                 if (value > 0)
                 {
-                    deptNo = value;
+                    deptno = value;
                 }
                 else
                 {
-                    Console.WriteLine("invalid deptno");
+                    Console.WriteLine("invalid");
                 }
             }
             get
             {
-                return deptNo;
-
-            }
-        }
-        public abstract decimal BASIC
-        {
-            get;
-            set;
-        }
-        public abstract decimal clacNetsalary();
-
-        public void insert()
-        {
-            Console.WriteLine("Update called");
-        }
-
-        public void update()
-        {
-            Console.WriteLine("Update called");
-        }
-
-        public void delete()
-        {
-            Console.WriteLine("Update called");
-        }
-
-        public Employee(string name = "shravani", short deptno = 1, decimal basic = 10000)
-        {
-            lastempno++;
-            this.NAME = name;
-            this.DEPTNO = deptNo;
-            this.BASIC = basic;
-        }
-    }
-    class Manager : Employee,Idbfunction
-    {
-        string des;
-
-        public string DES
-        {
-            set
-            {
-                if (value == " ")
-                {
-                    Console.WriteLine("des is empty");
-                }
-                else
-                {
-                    this.des = value;
-                }
-
-            }
-            get
-            {
-                return des;
+                return deptno;
             }
         }
 
-        public override decimal BASIC
+        public Employee(string name, decimal basic, short deptno)
         {
-            set
-            {
-                if (value > 10000 && value < 60000)
-                {
-                    Console.WriteLine("invalid salary");
-                }
-                else
-                {
-                    this.basic = value;
-                }
 
-            }
-            get
-            {
-                return basic;
-            }
+            this.P1 = name;
+            empno++;
+            this.P2 += empno;
+            this.P3 = basic;
+            this.P4 = deptno;
         }
-       
-
-        public override decimal clacNetsalary()
+        public Employee(string name, decimal basic)
         {
-            decimal netsalary = basic + 100;
-            return netsalary;
-        }
-        public Manager(string name = "abhi", short deptno = 2, decimal basic = 20000, string des = "managr") : base(name, deptno, basic)
-        {
-            this.DES = des;
-        }
-    }
-    class GeneralManager : Manager,Idbfunction
-    {
-        string perk;
-        public string PERK
-        {
-            set
-            {
-                this.perk = value;
-            }
-            get
-            {
-                return perk;
-            }
-        }
-        public GeneralManager(string name = "leena", short deptno = 3, decimal basic = 30000, string des = "empe", string perk = "ss") : base(name, deptno, basic, des)
-        {
-            this.PERK = perk;
-        }
-        public override decimal BASIC
-        {
-            set
-            {
-                if (value > 10000 && value < 60000)
-                {
-                    Console.WriteLine("invalid salary");
-                }
-                else
-                {
-                    this.basic = value;
-                }
-
-            }
-            get
-            {
-                return basic;
-            }
-        }
-        public void insert()
-        {
-            Console.WriteLine("Update called");
+            this.P1 = name;
+            empno++;
+            this.P2 += empno;
+            this.P3 = basic;
         }
 
-        public void update()
+        public Employee(string name)
         {
-            Console.WriteLine("Update called");
+            this.P1 = name;
+            empno++;
+            this.P2 += empno;
+
         }
 
-        public void delete()
+        public Employee()
         {
-            Console.WriteLine("Update called");
-        }
-
-        public override decimal clacNetsalary()
-        {
-            decimal netsalary = basic + 100;
-            return netsalary;
-        }
-
-        class Ceo : Employee,Idbfunction
-        {
-            public override decimal BASIC
-            {
-                get
-                {
-                    return basic;
-                }
-                set
-                {
-                    if (value > 40000 && value < 200000)
-                        this.basic = value;
-                    else
-                        Console.WriteLine("invalid salary fro CEO");
-                }
-            }
-            public void insert()
-            {
-                Console.WriteLine("Update called");
-            }
-
-            public void update()
-            {
-                Console.WriteLine("Update called");
-            }
-
-            public void delete()
-            {
-                Console.WriteLine("Update called");
-            }
-
-
-            public sealed override decimal clacNetsalary()
-            {
-                decimal netSalary = basic + 700;
-                return netSalary;
-            }
-
-            //public Ceo(string name = "shr", short deptNo = 10, decimal basic = 35000) : base(name, deptNo, basic)
-            //{
-
-            //}
+            empno++;
+            this.P2 += empno;
         }
     }
 }
-
-
-
-
